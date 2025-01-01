@@ -18,6 +18,8 @@
     <!-- Sign In Button -->
     <Button text="Sign In" onAction="#handleSignIn" GridPane.rowIndex="3" GridPane.columnSpan="2" />
 
+    <Label fx:id="statusLabel" layoutX="50" layoutY="200" text="" GridPane.rowIndex="6" GridPane.columnSpan="2" style="-fx-text-fill: red; -fx-font-weight: bold;" />
+
     <!-- Sign Up Prompt -->
     <Label text="Don't have an account? " GridPane.rowIndex="4" GridPane.columnSpan="1"/>
     <Hyperlink text="Please Sign Up" fx:id="goToSignUpButton" onAction="#goToSignUp" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
