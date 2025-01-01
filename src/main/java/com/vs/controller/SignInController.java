@@ -41,7 +41,7 @@ public class SignInController {
         System.out.println("Sign In - Username: " + username + ", Password: " + password);
 
         // Get hashed password from database for the given username
-        String envFile = ".env.development"; // Pending to be fixed
+        String envFile = System.getProperty("APP_ENV_FILE");
         UserRepository userRepository = new UserRepository(envFile);
         User user = userRepository.getUser(username);
         if (user != null) {

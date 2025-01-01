@@ -65,7 +65,7 @@ public class SignUpController {
         String hashedPassword = PasswordUtils.hashPassword(password, salt);
         // Pending : Need to update in build configuration remove hardcoded value
         // Specify the .env file to load
-        String envFile = ".env.development"; // or ".env.production" for production
+        String envFile = System.getProperty("APP_ENV_FILE");
         UserRepository userRepository = new UserRepository(envFile);
         User user = new User(username, salt, hashedPassword);
         userRepository.createUser(user);
