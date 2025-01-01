@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import com.vs.model.User;
+import com.vs.repository.UserRepository;
+import com.vs.utility.PasswordUtils;
 
 public class SignUpController {
 
@@ -31,6 +31,8 @@ public class SignUpController {
     @FXML
     private Hyperlink goToSignInButton;
 
+    String salt;
+
     @FXML
     private void handleSignUp() {
         String username = usernameField.getText();
@@ -47,14 +49,14 @@ public class SignUpController {
     }
 
     private void storeCredentials(String username, String password) {
-        // Specify the file path (you can change this to your desired location)
-        String filePath = "src\\main\\resources\\credentials\\credentials.txt"; // Store in current working directory
-        try (FileWriter fw = new FileWriter(filePath, true); // Append mode
-             PrintWriter out = new PrintWriter(fw)) {
-            out.println(username + "," + password); // Store in "username,password" format
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        salt = PasswordUtils.generateSalt();
+        String hashedPassword = PasswordUtils.hashPassword(password, salt);
+        // Pending : Need to update in build configuration remove hardcoded value
+        // Specify the .env file to load
+        String envFile = ".env.development"; // or ".env.production" for production
+        UserRepository userRepository = new UserRepository(envFile);
+        User user = new User(username, salt, hashedPassword);
+        userRepository.createUser(user);
     }
 
     @FXML
