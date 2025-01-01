@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.vs.controller.SignInController" alignment="center" hgap="10" vgap="10" style="-fx-padding: 20;">
+    <!-- Header label -->
+    <Label text="Sign In" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333;" GridPane.columnSpan="2" />
+
+    <!-- Username Label and Field -->
+    <Label text="Username:" GridPane.rowIndex="1"/>
+    <TextField fx:id="usernameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <!-- Password Label and Field -->
+    <Label text="Password:" GridPane.rowIndex="2"/>
+    <PasswordField fx:id="passwordField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <!-- Sign In Button -->
+    <Button text="Sign In" onAction="#handleSignIn" GridPane.rowIndex="3" GridPane.columnSpan="2" />
+
+    <!-- Sign Up Prompt -->
+    <Label text="Don't have an account? " GridPane.rowIndex="4" GridPane.columnSpan="1"/>
+    <Hyperlink text="Please Sign Up" fx:id="goToSignUpButton" onAction="#goToSignUp" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+</GridPane>
