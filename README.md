@@ -20,15 +20,18 @@ This is a Password Manager application developed using JavaFX for the user inter
     Use src\main\resources\sql to create tables
 
 3. setup env
-    Create following files
+    1. Create following files
         .env.development
         .env.qa
         .env.prod
 
-    Add database details like (.env.* file looks like)
+    2. Add database details like (.env.* file looks like)
         DB_URL=jdbc:mysql://<hostname>:<port>/<database_name>
         DB_USERNAME=<username>
         DB_PASSWORD=<password>
+
+    3. Configure Pepper key for hashing
+        PEPPER=<your_pepper_key>
 
 4. Build Project
     mvn clean install

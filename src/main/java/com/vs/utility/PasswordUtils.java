@@ -5,8 +5,18 @@ import java.util.Base64;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import io.github.cdimascio.dotenv.Dotenv;
 
-public class PasswordUtils{
+public class PasswordUtils {
+
+    private static String envFile = ".env.development"; // Pending to be fixed
+    static Dotenv dotenv = Dotenv.configure()
+            .directory("env")
+            .filename(envFile) // Specify the filename
+            .load();
+
+    private static final String PEPPER = dotenv.get("PEPPER_KEY"); // Replace with a securely stored value
+
     // Method to generate a random salt
     public static String generateSalt() {
         // Create an instance of SecureRandom
@@ -28,6 +38,7 @@ public class PasswordUtils{
     }
 
     public static String hashPassword(String password, String salt) {
+        System.out.println("PEPPER: " + PEPPER);
         Argon2 argon2 = Argon2Factory.create();
 
         // Configure Argon2 parameters (optional)
@@ -35,8 +46,8 @@ public class PasswordUtils{
         int memory = 65536; // Memory in KB
         int parallelism = 1; // Number of parallel threads
 
-        // Combine password and salt before hashing
-        String combined = password + salt;
+        // Combine password, salt, and pepper before hashing
+        String combined = password + salt + PEPPER;
 
         // Hash the password with Argon2
         return argon2.hash(iterations, memory, parallelism, combined);
@@ -46,7 +57,7 @@ public class PasswordUtils{
         Argon2 argon2 = Argon2Factory.create();
 
         // Combine provided password and salt before hashing
-        String combined = providedPassword + salt;
+        String combined = providedPassword + salt + PEPPER;
 
         // Verify the password
         return argon2.verify(securedPassword, combined);
