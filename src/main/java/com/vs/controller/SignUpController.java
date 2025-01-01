@@ -9,7 +9,10 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class SignUpController {
 
@@ -37,8 +40,20 @@ public class SignUpController {
         // Handle sign-up logic here
         if (password.equals(confirmPassword)) {
             System.out.println("Sign Up - Username: " + username + ", Password: " + password);
+            storeCredentials(username, password);
         } else {
             System.out.println("Passwords do not match!");
+        }
+    }
+
+    private void storeCredentials(String username, String password) {
+        // Specify the file path (you can change this to your desired location)
+        String filePath = "src\\main\\resources\\credentials\\credentials.txt"; // Store in current working directory
+        try (FileWriter fw = new FileWriter(filePath, true); // Append mode
+             PrintWriter out = new PrintWriter(fw)) {
+            out.println(username + "," + password); // Store in "username,password" format
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
