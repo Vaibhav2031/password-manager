@@ -20,9 +20,19 @@
     <PasswordField fx:id="confirmPasswordField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
     <!-- Sign Up Button -->
-    <Button text="Sign Up" onAction="#handleSignUp" GridPane.rowIndex="4" GridPane.columnSpan="2" />
+    <Button fx:id="signUpButton" text="Sign Up" onAction="#handleSignUp" GridPane.rowIndex="4" GridPane.columnSpan="2" />
 
     <!-- Sign In Prompt -->
     <Label text="Already have an account? " GridPane.rowIndex="5" GridPane.columnSpan="1"/>
     <Hyperlink text="Sign In" fx:id="goToSignInButton" onAction="#goToSignIn" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+    <!-- Other UI elements like TextField and Button -->
+
+    <Label fx:id="statusLabel" layoutX="50" layoutY="200" text="" GridPane.rowIndex="6" GridPane.columnSpan="2" style="-fx-text-fill: red; -fx-font-weight: bold;" />
+
 </GridPane>
+
+
+
+
+

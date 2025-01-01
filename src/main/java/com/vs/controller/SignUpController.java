@@ -5,6 +5,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,9 @@ public class SignUpController {
     @FXML
     private Hyperlink goToSignInButton;
 
+    @FXML
+    private Label statusLabel;
+
     String salt;
 
     @FXML
@@ -42,13 +46,21 @@ public class SignUpController {
         // Handle sign-up logic here
         if (password.equals(confirmPassword)) {
             System.out.println("Sign Up - Username: " + username + ", Password: " + password);
-            storeCredentials(username, password);
+            // Store credentials
+            boolean success = storeCredentials(username, password);
+
+            // Update label based on success
+            if (success) {
+                statusLabel.setText("Registration successful! Please Sign In.");
+            } else {
+                statusLabel.setText("Registration failed. Try again.");
+            }
         } else {
             System.out.println("Passwords do not match!");
         }
     }
 
-    private void storeCredentials(String username, String password) {
+    private boolean storeCredentials(String username, String password) {
         salt = PasswordUtils.generateSalt();
         String hashedPassword = PasswordUtils.hashPassword(password, salt);
         // Pending : Need to update in build configuration remove hardcoded value
@@ -57,6 +69,7 @@ public class SignUpController {
         UserRepository userRepository = new UserRepository(envFile);
         User user = new User(username, salt, hashedPassword);
         userRepository.createUser(user);
+        return true;
     }
 
     @FXML
