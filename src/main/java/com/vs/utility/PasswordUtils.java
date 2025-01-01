@@ -9,7 +9,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class PasswordUtils {
 
-    private static String envFile = ".env.development"; // Pending to be fixed
+    private static String envFile = System.getProperty("APP_ENV_FILE");
     static Dotenv dotenv = Dotenv.configure()
             .directory("env")
             .filename(envFile) // Specify the filename
