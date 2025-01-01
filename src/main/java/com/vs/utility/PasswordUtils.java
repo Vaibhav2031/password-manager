@@ -42,4 +42,14 @@ public class PasswordUtils{
         return argon2.hash(iterations, memory, parallelism, combined);
     }
 
+    public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt) {
+        Argon2 argon2 = Argon2Factory.create();
+
+        // Combine provided password and salt before hashing
+        String combined = providedPassword + salt;
+
+        // Verify the password
+        return argon2.verify(securedPassword, combined);
+    }
+
 }
