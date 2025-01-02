@@ -38,7 +38,6 @@ public class PasswordUtils {
     }
 
     public static String hashPassword(String password, String salt) {
-        System.out.println("PEPPER: " + PEPPER);
         Argon2 argon2 = Argon2Factory.create();
 
         // Configure Argon2 parameters (optional)
